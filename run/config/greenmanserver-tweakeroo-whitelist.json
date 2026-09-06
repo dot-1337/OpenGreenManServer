@@ -1,0 +1,6 @@
+// Tweakeroo兼容名单：填写玩家名或UUID后使用/greenman config reload立即生效
+{
+  // 放宽伪潜行放置、持续左键和持续右键，并在名单玩家使用鞘翅时跳过Elytra检测、移动预测和拉回
+  // 非鞘翅飞行、速度、Reach、Hitboxes、Timer和战斗检测仍然生效
+  "players": []
+}

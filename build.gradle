@@ -1,0 +1,84 @@
+plugins {
+    id 'fabric-loom' version '1.17.19'
+    id 'maven-publish'
+}
+
+group = project.maven_group
+version = project.mod_version
+
+def useNamedSources = project.findProperty('useNamedSources') != 'false'
+
+base {
+    archivesName = project.archives_base_name
+}
+
+repositories {
+    maven { name = 'Fabric'; url = uri('https://maven.fabricmc.net/') }
+    mavenCentral()
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    if (useNamedSources) {
+        mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+    } else {
+        // The recovered sources use intermediary names. An empty layered mapping keeps
+        // intermediary as the development namespace while retaining Loom's base layer.
+        mappings loom.layered {}
+    }
+    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+}
+
+sourceSets {
+    main {
+        java {
+            // Use the recovered intermediary sources when the named source set is absent.
+            srcDirs = [useNamedSources && file('src/main/java-named').exists() ? 'src/main/java-named' : 'src/main/java']
+        }
+    }
+}
+
+processResources {
+    inputs.property 'version', project.version
+    filesMatching('fabric.mod.json') {
+        expand 'version': project.version
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.release = 21
+}
+
+java {
+    withSourcesJar()
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
+jar {
+    from('LICENSE_greenmanserver') {
+        rename { fileName -> "${fileName}_${project.archives_base_name}" }
+    }
+}
+
+publishing {
+    publications {
+        create('mavenJava', MavenPublication) {
+            from components.java
+        }
+    }
+}
+
+loom {
+    // Keep the recovered source and production artifact in intermediary namespace.
+    productionNamespace = 'intermediary'
+
+    runs {
+        server {
+            server()
+            ideConfigGenerated = true
+        }
+    }
+}

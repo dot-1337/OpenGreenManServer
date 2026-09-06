@@ -1,0 +1,26 @@
+{
+	"required": true,
+	"package": "shit.shmily.mixin",
+	"compatibilityLevel": "JAVA_21",
+	"mixins": [
+		"ComposterBlockMixin",
+		"AnvilMenuMixin",
+		"DispenserRecipeMixin",
+		"ElytraMovementCheckMixin",
+		"PersistentEntitySectionManagerMixin",
+		"PlayerInfoUpdatePacketMixin",
+		"ServerLatencyMixin",
+		"PlayerChatMixin",
+		"PlayerListBanMessageMixin",
+		"ResourcePackResponseMixin",
+		"VanillaPrimedTntMixin",
+		"VanillaRedstoneSignalGuardMixin",
+		"VanillaTntBlockMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	},
+	"overwrites": {
+		"requireAnnotations": true
+	}
+}

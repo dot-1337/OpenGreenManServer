@@ -1,0 +1,34 @@
+{
+	"schemaVersion": 1,
+	"id": "greenmanserver",
+	"version": "1.1.0",
+	"name": "GreenManServer",
+	"description": "GreenManServer 是一个纯 Fabric 服务端模组，提供 TAB 状态、玩家称号、聊天限制、堆肥桶与内存优化。",
+	"authors": [
+		"Shmily"
+	],
+	"contact": {
+		"homepage": "https://space.bilibili.com/1576498148?spm_id_from=333.1007.0.0",
+		"sources": "https://space.bilibili.com/1576498148?spm_id_from=333.1007.0.0"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/greenmanserver/icon.png",
+	"environment": "server",
+	"entrypoints": {
+		"preLaunch": [
+			"shit.shmily.network.GreenManNetworkCheckBlocker"
+		],
+		"main": [
+			"shit.shmily.GreenManServer"
+		]
+	},
+	"mixins": [
+		"greenmanserver.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.19.3",
+		"minecraft": "~1.21.11",
+		"java": ">=21",
+		"fabric-api": "*"
+	}
+}

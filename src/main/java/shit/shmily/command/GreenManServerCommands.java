@@ -61,7 +61,7 @@ public final class GreenManServerCommands {
          (LiteralArgumentBuilder)((LiteralArgumentBuilder)((LiteralArgumentBuilder)((LiteralArgumentBuilder)((LiteralArgumentBuilder)((LiteralArgumentBuilder)((LiteralArgumentBuilder)((LiteralArgumentBuilder)((LiteralArgumentBuilder)((LiteralArgumentBuilder)((LiteralArgumentBuilder)((LiteralArgumentBuilder)((LiteralArgumentBuilder)((LiteralArgumentBuilder)((LiteralArgumentBuilder)((LiteralArgumentBuilder)((LiteralArgumentBuilder)((LiteralArgumentBuilder)((LiteralArgumentBuilder)((LiteralArgumentBuilder)((LiteralArgumentBuilder)((LiteralArgumentBuilder)((LiteralArgumentBuilder)((LiteralArgumentBuilder)((LiteralArgumentBuilder)((LiteralArgumentBuilder)((LiteralArgumentBuilder)((LiteralArgumentBuilder)((LiteralArgumentBuilder)((LiteralArgumentBuilder)((LiteralArgumentBuilder)CommandManager.literal(
                                                                                                          "greenman"
                                                                                                       )
-                                                                                                      .requires(CommandManager.requirePermissionLevel(CommandManager.MODERATORS_CHECK)))
+                                                                                                      .requires(CommandManager.requirePermissionLevel(CommandManager.MODERATORS_CHECK)).executes(GreenManServerCommands::showGreenManUsage))
                                                                                                    .then(
                                                                                                       ((LiteralArgumentBuilder)CommandManager.literal("title")
                                                                                                             .then(
@@ -827,6 +827,15 @@ public final class GreenManServerCommands {
                   )
             )
       );
+   }
+
+   private static int showGreenManUsage(CommandContext<ServerCommandSource> commandContext) {
+      ((ServerCommandSource)commandContext.getSource())
+         .sendFeedback(
+            () -> Text.literal("GreenManServer 管理命令已加载。使用 /greenman config status 查看状态，或按 Tab 查看全部子命令。"),
+            false
+         );
+      return 1;
    }
 
    private static int showVoteUsage(CommandContext<ServerCommandSource> commandContext) {
